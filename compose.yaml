@@ -1,0 +1,30 @@
+---
+
+services:
+  flask:
+    image: dhirajpatil11/flask:latest
+    build:
+      context: "./"
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    env_file:
+      - dev.env
+    secrets:
+      - app_version
+
+    environment:
+      - APP_VERSION=3.0.0
+      - APP_TOKEN=${APP_TOKEN}
+    
+    volumes:
+     # - ./app:/data     this is bind mounts
+     - test_volume:/data   # this is named volume
+
+
+secrets:
+  app_version:
+    file: ./app_version.txt
+
+volumes:
+  test_volume:
